@@ -10,6 +10,10 @@ class Buyer(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name = "Покупатель"
+        verbose_name_plural = "Покупатели"
 
 
 class Games(models.Model):
@@ -22,3 +26,7 @@ class Games(models.Model):
 
     def __str__(self):
         return self.title
+    
+    class Meta:
+        verbose_name = "Игра"
+        verbose_name_plural = "Игры"
