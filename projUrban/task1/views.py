@@ -2,9 +2,25 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .forms import UserRegister
 from .models import *
+from django.core.paginator import Paginator
 
 
 # Create your views here.
+
+def news(request):
+    posts = News.objects.all().order_by('-created_at')
+    elements_in_page = request.GET.get('elements_in_page', 3)
+    paginator = Paginator(posts, per_page=elements_in_page)
+    page_number = request.GET.get('page')
+    page_posts = paginator.get_page(page_number)
+
+    context = {
+        'page_posts': page_posts,
+        'elements_in_page': elements_in_page
+    }
+    return render(request, 'news.html', context)
+
+
 def shopping_cart(request):
     text = 'Корзина'
     text2 = 'Извините, ваша корзина пуста'
@@ -12,7 +28,7 @@ def shopping_cart(request):
         'text': text,
         'text2': text2
     }
-    return render(request, 'shopping_cart.html',context)
+    return render(request, 'shopping_cart.html', context)
 
 
 def shop(request):
