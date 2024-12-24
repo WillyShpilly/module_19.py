@@ -1,12 +1,14 @@
 from django.db import models
+# from django.core.validators import MinValueValidator
+
 
 # Create your models here.
 
 
 class Buyer(models.Model):
     name = models.CharField(max_length=50)
-    balance = models.DecimalField(max_digits=9, decimal_places=2)
-    age = models.IntegerField()
+    balance = models.DecimalField(null=True, max_digits=9, decimal_places=2)
+    age = models.IntegerField()  #validators=[MinValueValidator(0)]
 
     def __str__(self):
         return self.name
